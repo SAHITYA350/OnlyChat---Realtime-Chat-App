@@ -17,6 +17,7 @@ const LoginPage = () => {
   
   useEffect(() => {
     // Create floating messages
+    
     const messageContents = [
       "Welcome back!",
       "Ready to chat?",
@@ -25,16 +26,16 @@ const LoginPage = () => {
       "New messages waiting"
     ];
     
-    const interval = setInterval(() => {
-      if (messages.length < 5) {
-        const newMessage = {
-          id: Date.now(),
-          content: messageContents[Math.floor(Math.random() * messageContents.length)],
-          x: Math.random() * 80 + 10, // 10-90%
-          y: Math.random() * 80 + 10,
-          opacity: 0,
-          scale: 0.8
-        };
+  const interval = setInterval(() => {
+    if (messages.length < 5) {
+      const newMessage = {
+        id: Date.now(),
+        content: messageContents[Math.floor(Math.random() * messageContents.length)],
+        x: Math.random() * 80 + 10,
+        y: Math.random() * 80 + 10,
+        opacity: 0,
+        scale: 0.8
+      };
         
         setMessages(prev => [...prev, newMessage]);
         

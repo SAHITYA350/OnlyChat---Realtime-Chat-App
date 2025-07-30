@@ -52,18 +52,19 @@ const Navbar = () => {
             )}
 
             {/* On login page, just in case */}
-            {!authUser && isLoginPage && (
-              <>
-                <Link to="/profile" className="btn btn-sm btn-ghost gap-2">
-                  <User className="size-5" />
-                  <span className="hidden sm:inline">Profile</span>
-                </Link>
-                <button className="btn btn-sm btn-ghost gap-2" onClick={logout}>
-                  <LogOut className="size-5" />
-                  <span className="hidden sm:inline">Logout</span>
-                </button>
-              </>
-            )}
+          {!authUser && isLoginPage && (
+  <>
+    <Link to="/profile" className="btn btn-sm btn-ghost gap-2">
+      <User className="size-5" />
+      <span className="hidden sm:inline">Profile</span>
+    </Link>
+    <button className="btn btn-sm btn-ghost gap-2" onClick={logout}>
+      <LogOut className="size-5" />
+      <span className="hidden sm:inline">Logout</span>
+    </button>
+  </>
+)}
+
           </div>
         </div>
       </div>

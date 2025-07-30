@@ -15,6 +15,7 @@ export default {
       '100%': { transform: 'translateY(0) scale(1)', opacity: '0.6' },
     },
   },
+  
     },
   },
   plugins: [daisyui],
@@ -25,3 +26,4 @@ export default {
     ],
   },
 };
+
