@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
+
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -9,18 +10,21 @@ import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
 
-const PORT = process.env.PORT || 5001 ;
+const PORT = process.env.PORT || 5001;
 const __dirname = path.resolve();
 
-// ✅ Handle large JSON/image payloads
+// ✅ Middleware
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 
-// ✅ Enable CORS
+// ✅ CORS for both dev and production
 app.use(
   cors({
-    origin: "http://localhost:5173", // ✅ Adjust if deploying elsewhere
+    origin: [
+      "http://localhost:5173",
+      "https://your-frontend-url.netlify.app", // <-- 🔁 Change to your Netlify or Vercel frontend
+    ],
     credentials: true,
   })
 );
@@ -29,12 +33,18 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
+// ✅ Basic root route (for Render to avoid "Cannot GET /")
+app.get("/", (req, res) => {
+  res.send("OnlyChat backend is live ✅");
+});
+
 // ✅ Serve frontend in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(frontendPath));
 
- app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
   });
 }
 
