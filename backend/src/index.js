@@ -10,7 +10,7 @@ import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
 // ✅ Middleware
@@ -49,7 +49,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // ✅ Start server and connect DB
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Server running on port ${PORT}`);
   connectDB();
 });
+
